@@ -8,19 +8,16 @@ import {
   Clock3,
   DatabaseZap,
   FileSearch,
-  GitBranch,
   Handshake,
   Layers3,
   LineChart,
   LockKeyhole,
   Mail,
-  MessagesSquare,
   Network,
   Rocket,
   Route,
   ShieldCheck,
   Sparkles,
-  Workflow,
   Zap,
 } from 'lucide-react';
 
@@ -116,53 +113,9 @@ function SectionHeader({ eyebrow, title, copy, align = 'center', light = false }
 
   return (
     <div className={`${alignment} max-w-3xl`}>
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">{eyebrow}</p>
+      <p className="text-base font-semibold uppercase tracking-[0.18em] text-teal sm:text-lg">{eyebrow}</p>
       <h2 className={`mt-4 text-3xl font-semibold leading-tight sm:text-5xl ${titleColor}`}>{title}</h2>
       <p className={`mt-4 text-base leading-7 sm:text-lg ${copyColor}`}>{copy}</p>
-    </div>
-  );
-}
-
-function HeroWorkflowCard() {
-  const steps = [
-    ['Capture request', MessagesSquare, 'Intake from inbox, form, or chat'],
-    ['Retrieve context', BrainCircuit, 'Search policies, CRM, docs, and prior tickets'],
-    ['Execute action', GitBranch, 'Update tools and route approvals'],
-    ['Report outcome', LineChart, 'Log results with reviewable audit trail'],
-  ];
-
-  return (
-    <div className="relative rounded-[28px] border border-mint/[0.15] bg-mint p-3 shadow-[0_28px_80px_rgba(0,0,0,0.28)]">
-      <div className="rounded-[22px] bg-ink p-4 text-mint">
-        <div className="flex items-center justify-between border-b border-mint/10 pb-4">
-          <div>
-            <p className="text-sm font-semibold">Workflow console</p>
-            <p className="mt-1 text-xs text-mint/60">Live automation blueprint</p>
-          </div>
-          <span className="rounded-full bg-teal px-3 py-1 text-xs font-semibold text-white">Ready</span>
-        </div>
-        <div className="mt-5 space-y-3">
-          {steps.map(([label, Icon, description], index) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 + index * 0.08, duration: 0.45 }}
-              className="rounded-2xl border border-mint/10 bg-graphite p-4"
-            >
-              <div className="flex items-start gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-mint text-teal">
-                  <Icon size={19} />
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-white">{label}</p>
-                  <p className="mt-1 text-xs leading-5 text-mint/[0.65]">{description}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
@@ -171,7 +124,7 @@ function CapabilityMarquee() {
   const row = [...capabilities, ...capabilities];
 
   return (
-    <div className="overflow-hidden border-y border-mint/[0.12] bg-graphite py-5">
+    <div className="hidden overflow-hidden border-y border-mint/[0.12] bg-graphite py-5" aria-hidden="true">
       <motion.div
         animate={{ x: ['0%', '-50%'] }}
         transition={{ repeat: Infinity, duration: 28, ease: 'linear' }}
@@ -194,9 +147,7 @@ export default function App() {
       <header className="sticky top-0 z-50 border-b border-mint/10 bg-ink/[0.92] backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
           <a href="#top" className="flex items-center gap-3" aria-label="FlowAgentic home">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-mint text-ink">
-              <Workflow size={19} />
-            </span>
+            <img src="/flow-logo.png" alt="" className="h-10 w-10 rounded-full object-cover" />
             <span className="text-lg font-semibold tracking-tight text-white">FlowAgentic</span>
           </a>
           <div className="hidden items-center gap-7 rounded-full border border-mint/10 bg-white/[0.05] px-6 py-3 text-sm font-medium text-mint/70 md:flex">
@@ -207,7 +158,7 @@ export default function App() {
           </div>
           <a
             href={calendlyUrl}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-mint px-5 text-sm font-semibold text-ink transition hover:bg-teal hover:text-white focus:outline-none focus:ring-4 focus:ring-teal/[0.35]"
+            className="btn-gradient inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold transition focus:outline-none focus:ring-4 focus:ring-teal/[0.35]"
           >
             Let&apos;s Talk
             <ArrowRight size={16} />
@@ -218,14 +169,23 @@ export default function App() {
       <main id="top">
         <section className="relative overflow-hidden bg-ink px-5 pb-16 pt-12 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-hero-grid opacity-25" />
-          <div className="absolute left-1/2 top-20 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-teal/[0.20] blur-3xl" />
-          <div className="relative mx-auto grid max-w-7xl gap-10 lg:min-h-[720px] lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+          <motion.div
+            className="pointer-events-none absolute h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/[0.20] blur-3xl"
+            initial={{ left: '50%', top: '18%' }}
+            animate={{
+              left: ['50%', '72%', '28%', '64%', '42%', '50%'],
+              top: ['18%', '34%', '48%', '62%', '30%', '18%'],
+              scale: [1, 1.08, 0.92, 1.05, 0.96, 1],
+            }}
+            transition={{ repeat: Infinity, duration: 22, ease: 'easeInOut' }}
+          />
+          <div className="relative mx-auto flex max-w-7xl justify-center lg:min-h-[680px] lg:items-center">
             <FadeIn className="text-center lg:text-left">
               <div className="mx-auto inline-flex w-fit items-center gap-2 rounded-full border border-mint/[0.14] bg-white/[0.07] px-4 py-2 text-sm font-semibold text-mint lg:mx-0">
                 <span className="h-2 w-2 rounded-full bg-teal" />
                 Available now, limited automation builds open
               </div>
-              <h1 className="mx-auto mt-8 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-normal text-mint sm:text-7xl lg:mx-0 lg:text-8xl">
+              <h1 className="mx-auto mt-8 max-w-6xl text-5xl font-semibold leading-[0.98] tracking-normal text-mint sm:text-7xl lg:mx-0 lg:text-8xl">
                 Turn manual workflows into production AI systems.
               </h1>
               <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-mint/75 sm:text-xl lg:mx-0">
@@ -234,7 +194,7 @@ export default function App() {
               <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
                 <a
                   href={calendlyUrl}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-teal px-6 text-base font-semibold text-white transition hover:bg-mint hover:text-ink focus:outline-none focus:ring-4 focus:ring-teal/[0.35]"
+                  className="btn-gradient inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition focus:outline-none focus:ring-4 focus:ring-teal/[0.35]"
                 >
                   Book an automation audit
                   <ArrowRight size={18} />
@@ -249,9 +209,6 @@ export default function App() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.12}>
-              <HeroWorkflowCard />
-            </FadeIn>
           </div>
 
           <FadeIn delay={0.16} className="relative mx-auto mt-8 max-w-7xl">
@@ -311,7 +268,7 @@ export default function App() {
               />
               <a
                 href={calendlyUrl}
-                className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-mint px-6 text-base font-semibold text-ink transition hover:bg-teal hover:text-white"
+                className="btn-gradient mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition"
               >
                 Book A Call
                 <ArrowRight size={18} />
@@ -422,7 +379,7 @@ export default function App() {
         <section id="contact" className="bg-ink px-5 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl overflow-hidden rounded-[36px] border border-mint/[0.12] bg-graphite p-8 text-center shadow-2xl sm:p-12">
             <FadeIn>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">Let&apos;s Talk</p>
+              <p className="text-base font-semibold uppercase tracking-[0.18em] text-teal sm:text-lg">Let&apos;s Talk</p>
               <h2 className="mx-auto mt-5 max-w-4xl text-4xl font-semibold leading-tight text-mint sm:text-6xl">
                 Bring one workflow. Leave with a practical automation path.
               </h2>
@@ -432,7 +389,7 @@ export default function App() {
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <a
                   href={calendlyUrl}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-teal px-6 text-base font-semibold text-white transition hover:bg-mint hover:text-ink"
+                  className="btn-gradient inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition"
                 >
                   Open Calendly
                   <ArrowRight size={18} />
@@ -453,9 +410,7 @@ export default function App() {
       <footer className="border-t border-mint/10 bg-ink px-5 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-mint/[0.65] sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3 text-white">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-mint text-ink">
-              <Workflow size={17} />
-            </span>
+            <img src="/flow-logo.png" alt="" className="h-8 w-8 rounded-full object-cover" />
             <span className="font-semibold">FlowAgentic</span>
           </div>
           <p>AI agents, automation, integrations, and RAG systems.</p>

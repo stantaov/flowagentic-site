@@ -4,14 +4,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Open Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Geomanist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         ink: '#040506',
         graphite: '#2D2F35',
         cloud: '#FFF7F8',
         line: '#F1DDE3',
-        teal: '#EA4B71',
+        teal: '#ff1904',
         cobalt: '#8B5CF6',
         mint: '#FFFFFF',
       },
@@ -20,7 +20,7 @@ export default {
       },
       backgroundImage: {
         'hero-grid':
-          'linear-gradient(rgba(234,75,113,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(234,75,113,0.10) 1px, transparent 1px)',
+          'linear-gradient(rgba(255,25,4,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(255,25,4,0.10) 1px, transparent 1px)',
       },
       backgroundSize: {
         'hero-grid': '64px 64px',
