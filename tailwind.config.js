@@ -4,19 +4,26 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Open Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
-        ink: '#101828',
-        graphite: '#344054',
-        cloud: '#F6F8FA',
-        line: '#E4E7EC',
-        teal: '#0F766E',
-        cobalt: '#1D4ED8',
-        mint: '#CCFBF1',
+        ink: '#040506',
+        graphite: '#2D2F35',
+        cloud: '#FFF7F8',
+        line: '#F1DDE3',
+        teal: '#EA4B71',
+        cobalt: '#8B5CF6',
+        mint: '#FFFFFF',
       },
       boxShadow: {
-        soft: '0 18px 60px rgba(16, 24, 40, 0.08)',
+        soft: '0 18px 60px rgba(4, 5, 6, 0.10)',
+      },
+      backgroundImage: {
+        'hero-grid':
+          'linear-gradient(rgba(234,75,113,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(234,75,113,0.10) 1px, transparent 1px)',
+      },
+      backgroundSize: {
+        'hero-grid': '64px 64px',
       },
     },
   },

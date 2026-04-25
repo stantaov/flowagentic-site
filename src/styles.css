@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,7 +19,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #fbfcfd;
+  background: #fff7f8;
 }
 
 a {
@@ -25,6 +27,6 @@ a {
 }
 
 ::selection {
-  background: #ccfbf1;
-  color: #101828;
+  background: #ea4b71;
+  color: #ffffff;
 }
