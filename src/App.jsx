@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import {
   ArrowRight,
   Bot,
@@ -26,24 +27,28 @@ const calendlyUrl = 'https://calendly.com/flowagentic/intro-call';
 const services = [
   {
     icon: Bot,
+    visual: '/service-agent-workflows.svg',
     title: 'Agentic workflow automation',
     copy: 'Turn rule-heavy, repetitive processes into AI-assisted workflows that can reason, route, draft, update systems, and escalate exceptions.',
     result: 'Best for ops, support, sales, and admin workflows',
   },
   {
     icon: Network,
+    visual: '/service-integrations.svg',
     title: 'Systems and API integration',
     copy: 'Connect CRMs, inboxes, spreadsheets, internal apps, databases, and third-party APIs so automation works inside your actual stack.',
     result: 'Built around the tools your team already uses',
   },
   {
     icon: DatabaseZap,
+    visual: '/service-rag.svg',
     title: 'RAG assistants and knowledge systems',
     copy: 'Create assistants grounded in your SOPs, docs, tickets, product data, and policies with retrieval flows your team can trust.',
     result: 'Accurate answers from company-specific context',
   },
   {
     icon: ShieldCheck,
+    visual: '/service-production.svg',
     title: 'Production AI engineering',
     copy: 'Ship AI systems with observability, review paths, evaluation loops, prompt/version control, and documentation for long-term ownership.',
     result: 'Designed for daily operations, not just demos',
@@ -62,21 +67,25 @@ const useCases = [
 const process = [
   {
     step: '01',
+    visual: '/process-audit.svg',
     title: 'Workflow audit',
     copy: 'We map the manual process, handoffs, systems, decision rules, data quality issues, and measurable automation target.',
   },
   {
     step: '02',
+    visual: '/process-prototype.svg',
     title: 'Prototype with real inputs',
     copy: 'We validate the agent or assistant against real examples so accuracy, escalation paths, and UX are proven early.',
   },
   {
     step: '03',
+    visual: '/process-integrate.svg',
     title: 'Integrate and harden',
     copy: 'We connect production tools, add guardrails, logging, monitoring, retry paths, and human review where needed.',
   },
   {
     step: '04',
+    visual: '/process-launch.svg',
     title: 'Launch and improve',
     copy: 'We deploy, document, train the team, review outputs, and expand once the first workflow is performing.',
   },
@@ -142,6 +151,19 @@ function CapabilityMarquee() {
 }
 
 export default function App() {
+  const [heroImageOffset, setHeroImageOffset] = useState({ x: 0, y: 0 });
+
+  function handleHeroPointerMove(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    setHeroImageOffset({
+      x: Math.max(-1, Math.min(1, x)),
+      y: Math.max(-1, Math.min(1, y)),
+    });
+  }
+
   return (
     <div className="min-h-screen bg-ink text-mint">
       <header className="sticky top-0 z-50 border-b border-mint/10 bg-ink/[0.92] backdrop-blur-xl">
@@ -167,25 +189,30 @@ export default function App() {
       </header>
 
       <main id="top">
-        <section className="relative overflow-hidden bg-ink px-5 pb-16 pt-12 sm:px-6 lg:px-8">
+        <section
+          className="relative overflow-hidden bg-ink px-5 pb-16 pt-12 sm:px-6 lg:px-8"
+          onPointerMove={handleHeroPointerMove}
+          onPointerLeave={() => setHeroImageOffset({ x: 0, y: 0 })}
+        >
           <div className="absolute inset-0 bg-hero-grid opacity-25" />
-          <motion.div
-            className="pointer-events-none absolute h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/[0.20] blur-3xl"
-            initial={{ left: '50%', top: '18%' }}
+          <motion.img
+            fetchPriority="high"
+            width="3840"
+            height="1801"
+            src="/hero-bg.svg"
+            alt=""
+            className="pointer-events-none absolute -left-[17.5%] -top-[17.5%] h-[135%] w-[135%] max-w-none object-cover opacity-55 mix-blend-screen"
             animate={{
-              left: ['50%', '72%', '28%', '64%', '42%', '50%'],
-              top: ['18%', '34%', '48%', '62%', '30%', '18%'],
-              scale: [1, 1.08, 0.92, 1.05, 0.96, 1],
+              x: heroImageOffset.x * -34,
+              y: heroImageOffset.y * -24,
+              scale: 1.02 + Math.abs(heroImageOffset.x) * 0.015 + Math.abs(heroImageOffset.y) * 0.01,
             }}
-            transition={{ repeat: Infinity, duration: 22, ease: 'easeInOut' }}
+            transition={{ type: 'spring', stiffness: 48, damping: 22, mass: 0.8 }}
           />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,25,4,0.06),transparent_34%),linear-gradient(180deg,rgba(4,5,6,0.18),#040506_96%)]" />
           <div className="relative mx-auto flex max-w-7xl justify-center lg:min-h-[680px] lg:items-center">
             <FadeIn className="text-center lg:text-left">
-              <div className="mx-auto inline-flex w-fit items-center gap-2 rounded-full border border-mint/[0.14] bg-white/[0.07] px-4 py-2 text-sm font-semibold text-mint lg:mx-0">
-                <span className="h-2 w-2 rounded-full bg-teal" />
-                Available now, limited automation builds open
-              </div>
-              <h1 className="mx-auto mt-8 max-w-6xl text-5xl font-semibold leading-[0.98] tracking-normal text-mint sm:text-7xl lg:mx-0 lg:text-8xl">
+              <h1 className="mx-auto max-w-6xl text-5xl font-semibold leading-[0.98] tracking-normal text-mint sm:text-7xl lg:mx-0 lg:text-8xl">
                 Turn manual workflows into production AI systems.
               </h1>
               <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-mint/75 sm:text-xl lg:mx-0">
@@ -235,14 +262,17 @@ export default function App() {
               />
             </FadeIn>
             <div className="mt-12 grid gap-5 lg:grid-cols-4">
-              {services.map(({ icon: Icon, title, copy, result }, index) => (
+              {services.map(({ icon: Icon, visual, title, copy, result }, index) => (
                 <FadeIn key={title} delay={index * 0.05}>
                   <div className="group flex h-full flex-col rounded-[28px] border border-line bg-white p-5 shadow-soft transition hover:-translate-y-1">
-                    <div className="rounded-2xl bg-ink p-5 text-mint">
-                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-mint text-teal">
-                        <Icon size={22} />
-                      </span>
-                      <h3 className="mt-6 text-xl font-semibold text-white">{title}</h3>
+                    <div className="relative min-h-44 overflow-hidden rounded-2xl border border-white/[0.08] bg-ink p-5 text-mint">
+                      <img src={visual} alt="" className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-105" />
+                      <div className="relative">
+                        <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-teal shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
+                          <Icon size={22} />
+                        </span>
+                        <h3 className="mt-6 text-xl font-semibold text-white">{title}</h3>
+                      </div>
                     </div>
                     <p className="mt-5 text-sm leading-7 text-graphite/80">{copy}</p>
                     <div className="mt-auto flex items-start gap-2 pt-6 text-sm font-semibold text-teal">
@@ -309,10 +339,9 @@ export default function App() {
                 <FadeIn key={title} delay={index * 0.04}>
                   <div className="min-h-56 rounded-[28px] border border-line bg-white p-6 shadow-[0_1px_0_rgba(5,17,78,0.06)]">
                     <div className="flex items-center justify-between">
-                      <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-mint">
+                      <span className="grid h-10 w-10 place-items-center rounded-full bg-teal text-white">
                         <Check size={17} />
                       </span>
-                      <span className="text-sm font-semibold text-teal">0{index + 1}</span>
                     </div>
                     <h3 className="mt-8 text-xl font-semibold text-ink">{title}</h3>
                     <p className="mt-4 text-sm leading-7 text-graphite/80">{copy}</p>
@@ -334,13 +363,15 @@ export default function App() {
               />
             </FadeIn>
             <div className="mt-12 grid gap-5 lg:grid-cols-4">
-              {process.map(({ step, title, copy }, index) => (
+              {process.map(({ step, visual, title, copy }, index) => (
                 <FadeIn key={step} delay={index * 0.05}>
                   <div className="relative h-full overflow-hidden rounded-[28px] border border-mint/[0.12] bg-graphite p-6">
-                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-teal/[0.15]" />
-                    <p className="text-sm font-semibold text-teal">{step}</p>
-                    <h3 className="mt-16 text-xl font-semibold text-mint">{title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-mint/70">{copy}</p>
+                    <img src={visual} alt="" className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-ink/[0.42] via-ink/[0.36] to-ink/[0.78]" />
+                    <div className="relative flex min-h-64 flex-col">
+                      <h3 className="mt-auto text-xl font-semibold text-mint">{title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-mint/70">{copy}</p>
+                    </div>
                   </div>
                 </FadeIn>
               ))}
