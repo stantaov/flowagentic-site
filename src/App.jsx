@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import {
   ArrowRight,
   Bot,
@@ -21,34 +20,35 @@ import {
   Sparkles,
   Zap,
 } from 'lucide-react';
+import { WebGLShader } from '@/components/ui/web-gl-shader';
 
 const calendlyUrl = 'https://calendly.com/flowagentic/intro-call';
 
 const services = [
   {
     icon: Bot,
-    visual: '/service-agent-workflows.svg',
+    visual: '/service-agent-workflows-bg.jpg',
     title: 'Agentic workflow automation',
     copy: 'Turn rule-heavy, repetitive processes into AI-assisted workflows that can reason, route, draft, update systems, and escalate exceptions.',
     result: 'Best for ops, support, sales, and admin workflows',
   },
   {
     icon: Network,
-    visual: '/service-integrations.svg',
+    visual: '/service-integrations-bg.jpg',
     title: 'Systems and API integration',
     copy: 'Connect CRMs, inboxes, spreadsheets, internal apps, databases, and third-party APIs so automation works inside your actual stack.',
     result: 'Built around the tools your team already uses',
   },
   {
     icon: DatabaseZap,
-    visual: '/service-rag.svg',
+    visual: '/service-rag-bg.jpg',
     title: 'RAG assistants and knowledge systems',
     copy: 'Create assistants grounded in your SOPs, docs, tickets, product data, and policies with retrieval flows your team can trust.',
     result: 'Accurate answers from company-specific context',
   },
   {
     icon: ShieldCheck,
-    visual: '/service-production.svg',
+    visual: '/service-production-bg.jpg',
     title: 'Production AI engineering',
     copy: 'Ship AI systems with observability, review paths, evaluation loops, prompt/version control, and documentation for long-term ownership.',
     result: 'Designed for daily operations, not just demos',
@@ -56,36 +56,60 @@ const services = [
 ];
 
 const useCases = [
-  ['Lead operations', 'Qualify inbound leads, enrich records, draft follow-ups, and keep CRM stages current.'],
-  ['Customer support', 'Route tickets, retrieve context, prepare response drafts, and flag edge cases for humans.'],
-  ['Document processing', 'Extract structured data, summarize files, validate against rules, and prepare review queues.'],
-  ['Internal knowledge', 'Give teams a grounded assistant across SOPs, docs, tickets, and company systems.'],
-  ['Reporting workflows', 'Create daily briefs, exception reports, account summaries, and operational updates.'],
-  ['Back-office automation', 'Coordinate tasks across email, forms, spreadsheets, databases, and approval tools.'],
+  {
+    visual: '/usecase-lead-operations.jpg',
+    title: 'Lead operations',
+    copy: 'Qualify inbound leads, enrich records, draft follow-ups, and keep CRM stages current.',
+  },
+  {
+    visual: '/usecase-customer-support.jpg',
+    title: 'Customer support',
+    copy: 'Route tickets, retrieve context, prepare response drafts, and flag edge cases for humans.',
+  },
+  {
+    visual: '/usecase-document-processing.jpg',
+    title: 'Document processing',
+    copy: 'Extract structured data, summarize files, validate against rules, and prepare review queues.',
+  },
+  {
+    visual: '/usecase-internal-knowledge.jpg',
+    title: 'Internal knowledge',
+    copy: 'Give teams a grounded assistant across SOPs, docs, tickets, and company systems.',
+  },
+  {
+    visual: '/usecase-reporting-workflows.jpg',
+    title: 'Reporting workflows',
+    copy: 'Create daily briefs, exception reports, account summaries, and operational updates.',
+  },
+  {
+    visual: '/usecase-back-office-automation.jpg',
+    title: 'Back-office automation',
+    copy: 'Coordinate tasks across email, forms, spreadsheets, databases, and approval tools.',
+  },
 ];
 
 const process = [
   {
     step: '01',
-    visual: '/process-audit.svg',
+    visual: '/process-workflow-audit-bg.jpg',
     title: 'Workflow audit',
     copy: 'We map the manual process, handoffs, systems, decision rules, data quality issues, and measurable automation target.',
   },
   {
     step: '02',
-    visual: '/process-prototype.svg',
+    visual: '/process-prototype-bg.jpg',
     title: 'Prototype with real inputs',
     copy: 'We validate the agent or assistant against real examples so accuracy, escalation paths, and UX are proven early.',
   },
   {
     step: '03',
-    visual: '/process-integrate.svg',
+    visual: '/process-integrate-harden-bg.jpg',
     title: 'Integrate and harden',
     copy: 'We connect production tools, add guardrails, logging, monitoring, retry paths, and human review where needed.',
   },
   {
     step: '04',
-    visual: '/process-launch.svg',
+    visual: '/process-launch-improve-bg.jpg',
     title: 'Launch and improve',
     copy: 'We deploy, document, train the team, review outputs, and expand once the first workflow is performing.',
   },
@@ -151,19 +175,6 @@ function CapabilityMarquee() {
 }
 
 export default function App() {
-  const [heroImageOffset, setHeroImageOffset] = useState({ x: 0, y: 0 });
-
-  function handleHeroPointerMove(event) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-
-    setHeroImageOffset({
-      x: Math.max(-1, Math.min(1, x)),
-      y: Math.max(-1, Math.min(1, y)),
-    });
-  }
-
   return (
     <div className="min-h-screen bg-ink text-mint">
       <header className="sticky top-0 z-50 border-b border-mint/10 bg-ink/[0.92] backdrop-blur-xl">
@@ -189,36 +200,20 @@ export default function App() {
       </header>
 
       <main id="top">
-        <section
-          className="relative overflow-hidden bg-ink px-5 pb-16 pt-12 sm:px-6 lg:px-8"
-          onPointerMove={handleHeroPointerMove}
-          onPointerLeave={() => setHeroImageOffset({ x: 0, y: 0 })}
-        >
-          <div className="absolute inset-0 bg-hero-grid opacity-25" />
-          <motion.img
-            fetchPriority="high"
-            width="3840"
-            height="1801"
-            src="/hero-bg.svg"
-            alt=""
-            className="pointer-events-none absolute -left-[17.5%] -top-[17.5%] h-[135%] w-[135%] max-w-none object-cover opacity-55 mix-blend-screen"
-            animate={{
-              x: heroImageOffset.x * -34,
-              y: heroImageOffset.y * -24,
-              scale: 1.02 + Math.abs(heroImageOffset.x) * 0.015 + Math.abs(heroImageOffset.y) * 0.01,
-            }}
-            transition={{ type: 'spring', stiffness: 48, damping: 22, mass: 0.8 }}
-          />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,25,4,0.06),transparent_34%),linear-gradient(180deg,rgba(4,5,6,0.18),#040506_96%)]" />
-          <div className="relative mx-auto flex max-w-7xl justify-center lg:min-h-[680px] lg:items-center">
-            <FadeIn className="text-center lg:text-left">
-              <h1 className="mx-auto max-w-6xl text-5xl font-semibold leading-[0.98] tracking-normal text-mint sm:text-7xl lg:mx-0 lg:text-8xl">
+        <section className="relative overflow-hidden bg-ink px-5 pb-16 pt-12 sm:px-6 lg:px-8">
+          <WebGLShader className="top-[-96px] h-[calc(100%+96px)] opacity-100" />
+          <div className="absolute inset-0 bg-hero-grid opacity-[0.08]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_36%,rgba(255,255,255,0.07),transparent_30%),radial-gradient(circle_at_50%_54%,rgba(255,25,4,0.08),transparent_36%),linear-gradient(180deg,rgba(4,5,6,0.04),rgba(4,5,6,0.72)_96%)]" />
+          <div className="relative mx-auto flex max-w-7xl justify-center py-8 lg:min-h-[680px] lg:items-center">
+            <FadeIn className="w-full text-center">
+              <div className="mx-auto max-w-6xl px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+              <h1 className="mx-auto max-w-6xl text-5xl font-semibold leading-[0.98] tracking-normal text-mint sm:text-7xl lg:text-8xl">
                 Turn manual workflows into production AI systems.
               </h1>
-              <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-mint/75 sm:text-xl lg:mx-0">
-                FlowAgentic helps businesses design, build, and deploy AI agents, RAG assistants, and custom integrations that automate real operational work.
+              <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-mint/75 sm:text-xl">
+                FlowAgentic helps Canadian businesses design, build, and deploy AI agents, RAG assistants, and custom integrations that automate real operational work.
               </p>
-              <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+              <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
                 <a
                   href={calendlyUrl}
                   className="btn-gradient inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-base font-semibold transition focus:outline-none focus:ring-4 focus:ring-teal/[0.35]"
@@ -233,6 +228,7 @@ export default function App() {
                   Learn More
                   <ChevronRight size={18} />
                 </a>
+              </div>
               </div>
             </FadeIn>
 
@@ -335,16 +331,20 @@ export default function App() {
               />
             </FadeIn>
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {useCases.map(([title, copy], index) => (
+              {useCases.map(({ visual, title, copy }, index) => (
                 <FadeIn key={title} delay={index * 0.04}>
-                  <div className="min-h-56 rounded-[28px] border border-line bg-white p-6 shadow-[0_1px_0_rgba(5,17,78,0.06)]">
-                    <div className="flex items-center justify-between">
-                      <span className="grid h-10 w-10 place-items-center rounded-full bg-teal text-white">
+                  <div className="group relative min-h-72 overflow-hidden rounded-[28px] border border-line bg-ink p-6 shadow-[0_1px_0_rgba(5,17,78,0.06)] transition hover:-translate-y-1 hover:shadow-soft">
+                    <img src={visual} alt="" className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-ink/[0.14] via-ink/[0.34] to-ink/[0.84]" />
+                    <div className="relative flex min-h-60 flex-col text-white">
+                      <span className="grid h-10 w-10 place-items-center rounded-full bg-teal text-white shadow-[0_14px_30px_rgba(0,0,0,0.24)]">
                         <Check size={17} />
                       </span>
+                      <div className="mt-auto">
+                        <h3 className="text-2xl font-semibold leading-tight text-white">{title}</h3>
+                        <p className="mt-4 text-sm leading-7 text-white/80">{copy}</p>
+                      </div>
                     </div>
-                    <h3 className="mt-8 text-xl font-semibold text-ink">{title}</h3>
-                    <p className="mt-4 text-sm leading-7 text-graphite/80">{copy}</p>
                   </div>
                 </FadeIn>
               ))}
@@ -444,7 +444,7 @@ export default function App() {
             <img src="/flow-logo.png" alt="" className="h-8 w-8 rounded-full object-cover" />
             <span className="font-semibold">FlowAgentic</span>
           </div>
-          <p>AI agents, automation, integrations, and RAG systems.</p>
+          <p>AI agents, automation, integrations, and RAG systems for businesses across Canada.</p>
           <p>&copy; {new Date().getFullYear()} FlowAgentic. All rights reserved.</p>
         </div>
       </footer>
